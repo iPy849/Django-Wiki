@@ -1,0 +1,38 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+
+    {% if edit %}
+        Edit - {{ title }}
+    {% else %}
+        New entry
+    {% endif %}
+
+{% endblock %}
+
+{% block body %}
+
+    {% if exists %}
+        <h4>'{{ title }}' is already taken, try with other title.</h4>
+    {% endif %}
+
+    <form action="{% url 'new' %}" method="POST">
+        {% csrf_token %}
+
+        {% if edit %}
+            <h2>{{ title }}</h2>
+            <div style="display: none;">
+                {{ form.title }}
+            </div>
+        {% else %}
+            {{ form.title }}
+        {% endif %}
+        
+        <div>
+            {{ form.text }}
+        </div>
+
+        <input type="submit" value="Save">
+    </form>
+
+{% endblock %}

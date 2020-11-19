@@ -1,0 +1,34 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {% if searched %}
+        Search Results
+    {% else %}
+        Encyclopedia
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    {% if entries %}
+        {% if searched %}
+            <h1>Search Results:</h1>
+        {% else %}
+            <h1>Entries:</h1>
+        {% endif %}
+        
+        <ul>
+            {% for entry in entries %}
+                <li><a href="{% url 'entry' entry %}">{{ entry }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <h1>No entries founded:</h1>
+        <ul style="list-style: none;">
+            {% if searched %}
+                <li><p>Try with a different search argument.</li>
+            {% else %}
+                <li>There aren't entries yet.</li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endblock %}
