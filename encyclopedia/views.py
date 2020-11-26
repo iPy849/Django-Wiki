@@ -110,10 +110,10 @@ def average(request):
 
             if promedio4 > 0:
                 promedio4 /= 0.4
-                respuestas = promedio4
+                respuestas = f'Promedio de parciales {promedio} _ promedio de parciales 60% {promedio6} _ nota final mínima para aprobar {promedio4}'
 
             elif promedio4 <= 0:
-                respuestas.append('Estas bien')
+                respuestas = 'Estas bien, puedes suspender el examen si gustas'
     
     return render(request, 'encyclopedia/promedio.html', {
         'respuestas': respuestas,
