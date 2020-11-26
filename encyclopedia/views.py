@@ -93,6 +93,33 @@ def randomPage(request):
     choice = random.choice(entries)
     return redirect('entry', choice)
 
+def average(request):
+    respuestas = None
+    if request.method == 'POST':
+        form = forms.AverageForm(request.POST)
+        if form.is_valid():
+            parcial_1 = form.cleaned_data['parcial1']
+            parcial_2 = form.cleaned_data['parcial2']
+            parcial_3 = form.cleaned_data['parcial3']
+            parcial_4 = form.cleaned_data['parcial4']
+
+            promedio = parcial_1 + parcial_2 + parcial_3 + parcial_4
+            promedio /= 4
+            promedio6 = promedio * 0.6
+            promedio4 = 6 - promedio6
+
+            if promedio4 > 0:
+                promedio4 /= 0.4
+                respuestas = promedio4
+
+            elif promedio4 <= 0:
+                respuestas.append('Estas bien')
+    
+    return render(request, 'encyclopedia/promedio.html', {
+        'respuestas': respuestas,
+        'form': forms.AverageForm()
+    })
+
 
 #Helper Functions
 def doSearch(arg):
